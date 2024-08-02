@@ -1,0 +1,65 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Sample API",
+      "description": "Get relevant data from vectorDB",
+      "version": "0.0.1"
+    },
+    "servers": [
+      {
+        "url": "https://mju-student-assistant-backend.1j8vle4ooma6.jp-tok.codeengine.appdomain.cloud/",
+        "description": "IP address and port without encryption/authentication",
+        "variables": {
+          "local_url": {
+            "default": "0.0.0.0:5000",
+            "description": "The portions of URL that follow http://"
+          }
+        }
+      }
+    ],
+    "paths": {
+      "/question_answer": {
+        "post": {
+          "summary": "Post query to retrieve data",
+          "description": "This path will receive a query in JSON format and provide data in SQL using watsonx ai",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "student_question": {
+                      "type": "string",
+                      "description": "The query string to pass in watsonx ai to generate SQL"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response with data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "string",
+                        "description": "The generated SQL"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "default": {
+              "description": "Unexpected error"
+            }
+          }
+        }
+      }
+    }
+  }
